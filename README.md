@@ -15,8 +15,6 @@ This readme file provides an overview of the project setup, including prerequisi
 - [Contributing](#contributing)
 - [License](#license)
 
----
-
 ## Prerequisites
 
 Before setting up the project, ensure you have the following installed:
@@ -134,4 +132,3 @@ All contributions are welcome!
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
-
