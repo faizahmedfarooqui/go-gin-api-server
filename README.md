@@ -2,6 +2,8 @@
 
 This project is a simple API server built with [Go](https://golang.org/) using the [Gin Web Framework](https://github.com/gin-gonic/gin). The project supports live reloading during development using **Air** and has an integrated migration system.
 
+This readme file provides an overview of the project setup, including prerequisites, installation, development, database migrations, and configuration. For more detailed information on the project features, please refer to the [DOCS.md](DOCS.md) file.
+
 ## Table of Contents
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -66,6 +68,8 @@ To start the server in development mode with live-reloading (using **Air**):
 ```bash
 make develop
 ```
+
+To learn more about the project, please goto [DOCS.md](DOCS.md).
 
 ## Database Migrations
 
