@@ -17,8 +17,6 @@ This document provides an overview of the key components in the project, includi
 - [Development Workflow](#development-workflow)
   - [Live Reloading with Air](#live-reloading-with-air)
 
----
-
 ## Validators
 
 Validators ensure that incoming data (such as user input) meets the necessary requirements before it is processed by the server. The project uses `go-playground/validator` to handle validation.
