@@ -15,3 +15,6 @@ run:
 
 develop:
 	air
+
+run-cron:
+	go run cmd/schedules/main.go

@@ -1,6 +1,6 @@
 # Go-Gin API Server
 
-This project is a simple API server built with [Go](https://golang.org/) using the [Gin Web Framework](https://github.com/gin-gonic/gin). The project supports live reloading during development using **Air** and has an integrated migration system.
+This project is a simple API server built with [Go](https://golang.org/) using the [Gin Web Framework](https://github.com/gin-gonic/gin). The project supports live reloading during development using **Air**, has an integrated migration system and cron scheduling system.
 
 This readme file provides an overview of the project setup, including prerequisites, installation, development, database migrations, and configuration. For more detailed information on the project features, please refer to the [DOCS.md](DOCS.md) file.
 
@@ -11,6 +11,9 @@ This readme file provides an overview of the project setup, including prerequisi
 - [Database Migrations](#database-migrations)
   - [Apply Migrations](#apply-migrations)
   - [Rollback Migrations](#rollback-migrations)
+- [Scheduled Tasks (Cron Jobs)](#scheduled-tasks-cron-jobs)
+  - [Running Cron Jobs](#running-cron-jobs)
+  - [Adding a New Cron Job](#adding-a-new-cron-job)
 - [Configuration](#configuration)
 - [Contributing](#contributing)
 - [License](#license)
@@ -92,6 +95,41 @@ make migrate-down
 Migration files are located in the `database/migrations/` directory.
 - **Up Migration**: Files ending in `.up.sql` are used for applying changes.
 - **Down Migration**: Files ending in `.down.sql` are used for rolling back changes.
+
+## Scheduled Tasks (Cron Jobs)
+
+The project uses cron jobs to perform scheduled tasks such as database cleanups or other recurring operations.
+
+### Running Cron Jobs
+
+Cron jobs are defined separately from the server and run independently. To start the cron job scheduler, run:
+
+```bash
+make run-cron
+```
+
+This will start the cron scheduler and execute tasks based on their defined schedule.
+
+### Adding a New Cron Job
+
+1. **Define the task** in the `schedules/tasks.go`. For example:
+```go
+func NewTask(db *sql.DB) {
+  log.Println("Running a new task...")
+  // Perform the task here
+}
+```
+
+2. **Register the task** in the `cmd/schedules/main.go` with the cron expression:
+```go
+_, err := c.AddFunc("0 0 * * *", func() {
+  tasks.NewTask(db)
+})
+```
+
+**Example Cron Expression**:
+- `* * * * *`: Every minute
+- `0 0 0 * * *`: Runs at midnight every day
 
 ## Configuration
 

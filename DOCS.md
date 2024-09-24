@@ -1,6 +1,6 @@
 # Documentation
 
-This document provides a detailed explanation of the project's structure, covering key components such as validators, database migrations, services, controllers, and the overall development workflow.
+This document provides a detailed explanation of the project's structure, covering key components such as validators, database migrations, services, controllers, cron jobs (schedules) and the overall development workflow.
 
 This project is designed to offer a solid foundation for developing an API server using Go and the Gin framework.
 
@@ -16,6 +16,7 @@ This project is designed to offer a solid foundation for developing an API serve
   - [Migration Structure](#migration-structure)
   - [Running Migrations](#running-migrations)
   - [Rolling Back Migrations](#rolling-back-migrations)
+- [Scheduled Tasks (Cron Jobs)](#scheduled-tasks-cron-jobs)
 - [Auto-Generated Code](#auto-generated-code)
   - [Using `go generate`](#using-go-generate)
 - [Development Workflow](#development-workflow)
@@ -25,51 +26,55 @@ This project is designed to offer a solid foundation for developing an API serve
 
 ```bash
 .
-├── Makefile
-├── air.toml
-├── go.mod
-├── go.sum
-├── main.go
-├── tools.go
+├── main.go                   # Entry point of the application
+├── tools.go                  # Track tools used in the project
+├── Makefile                  # Makefile for common tasks
+├── air.toml                  # Air configuration for live-reloading
+├── go.mod                    # Go module file
+├── go.sum                    # Go module file
 ├── cmd
-│   ├── generate_validators
+│   ├── generate_validators   # Tool to auto-generate validators
 │   │   └── main.go
-│   └── migrate
+│   ├── migrate               # Tool to run database migrations
+│   │   └── main.go
+│   └── schedules             # Tool to register and run cron jobs
 │       └── main.go
-├── config
+├── schedules                 # Package for cron tasks
+│   └── tasks.go              # Decoupled task logic for cron jobs
+├── config                    # Configuration files
 │   └── database.go
-├── controllers
+├── controllers               # API route handlers
 │   ├── auth_controller.go
 │   └── item_controller.go
-├── database
-│   ├── migrate.go
-│   └── migrations
-│       ├── 000001_create_items_table.down.sql
+├── database                  # Database-related code
+│   ├── migrate.go            # Migration logic
+│   └── migrations            # SQL migration files
 │       ├── 000001_create_items_table.up.sql
-│       ├── 000002_create_users_table.down.sql
+│       ├── 000001_create_items_table.down.sql
 │       └── 000002_create_users_table.up.sql
-├── middlewares
+│       ├── 000002_create_users_table.down.sql
+├── middlewares               # Middleware logic
 │   └── error_handler.go
-├── models
+├── models                    # Data models
 │   ├── item.go
 │   └── user.go
-├── repositories
+├── repositories              # Data access layer
 │   ├── item_repository.go
 │   └── user_repository.go
-├── routes
+├── routes                    # API routes
 │   └── routes.go
-├── services
+├── services                  # Business logic
 │   ├── auth_service.go
 │   └── item_service.go
-├── tmp
+├── tmp                       # Temporary files (excluded from version control)
 │   └── main
-├── utils
+├── utils                     # Utility functions
 │   └── password.go
-└── validators
+└── validators                # Input validation logic
     ├── auth_validator.go
-    ├── auto_generated.go
     ├── item_validator.go
-    └── register.go
+    ├── auto_generated.go     # Auto-generated file
+    └── register.go           # Handles go:generate directive
 ```
 
 ### Explanation of Directories
@@ -206,6 +211,31 @@ make migrate-down
 ```
 
 This command will execute the last migration's corresponding `*.down.sql` file, reverting the changes made by the last migration.
+
+## Scheduled Tasks (Cron Jobs)
+
+The project uses cron jobs to handle recurring tasks. These tasks are decoupled from the main server and can be run independently.
+
+**Structure**
+- **Cron Job Registration**: Cron jobs are registered in `cmd/schedules/main.go`.
+- **Task Logic**: Task-specific logic is located in `schedules/tasks.go`.
+
+### Running Cron Jobs
+
+To start the cron jobs, use:
+```bash
+make run-cron
+```
+
+### Adding a New Cron Job
+
+You can add new cron jobs by:
+1. **Defining a new task** in `schedules/tasks.go`.
+2. **Registering the task** in `cmd/schedules/main.go` with the desired cron schedule.
+
+**Example Cron Expression**:
+- `0 */1 * * * *`: Runs every minute.
+- `0 0 0 * * *`: Runs daily at midnight.
 
 ## Auto-Generated Code
 
