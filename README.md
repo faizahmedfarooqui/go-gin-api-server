@@ -54,7 +54,7 @@ Before setting up the project, ensure you have the following installed:
   DB_HOST=localhost
   DB_PORT=5432
   DB_USER=postgres
-  DB_PASSWORD=goldtree9
+  DB_PASSWORD=your_password
   DB_NAME=postgres
   DB_SSLMODE=disable
   ```
