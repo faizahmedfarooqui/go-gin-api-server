@@ -1,0 +1,44 @@
+# air.toml
+[build]
+  # Command to build the app (default: "go build -o ./tmp/main .")
+  cmd = "go build -o ./tmp/main ."
+
+  # Binary that will be built and run (default: "./tmp/main")
+  bin = "./tmp/main"
+
+  # Delay before restarting the app after a change is detected (in milliseconds)
+  delay = 1000  # 1 second delay
+
+  # Specify directories for the temporary binary files (default: "tmp")
+  tmp_dir = "tmp"
+
+[log]
+  # Log level (default: "info")
+  level = "info"
+
+[watch]
+  # Directories or files to include in watch (default: current directory)
+  # You can add specific folders you want to watch.
+  includes = [
+    "./cmd",
+    "./config",
+    "./controllers",
+    "./database",
+    "./middlewares",
+    "./models",
+    "./repositories",
+    "./routes",
+    "./services",
+    "./utils",
+    "./validators"
+  ]
+
+  # File extensions to watch (default: ["go"])
+  include_ext = ["go", "html", "tmpl", "tpl", "sql"]
+
+  # Exclude certain directories from being watched
+  exclude_dir = ["vendor", "tmp", "database/migrations"]
+
+[ignore]
+  # List directories or files to be ignored from watching
+  dirs = ["tmp", "vendor"]

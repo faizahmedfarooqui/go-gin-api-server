@@ -1,0 +1,45 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+
+# Output from Air (temporary binary and logs)
+tmp/
+air.log
+
+# Go environment settings
+.env
+
+# Dependency directories
+vendor/
+Godeps/
+
+# Logs and temporary files
+*.log
+*.out
+*.tmp
+*.swp
+*.swo
+*.bak
+
+# MacOS-specific files
+.DS_Store
+
+# Ignore Go modules (if you're vendoring dependencies, this is not needed)
+go.sum
+
+# IDE/Editor-specific files (optional, based on your IDE)
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Generated code (like auto-generated validators)
+validators/auto_generated.go
+
+# Go build output
+*.o
+*.a
+*.out
