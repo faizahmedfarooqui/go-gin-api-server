@@ -2,7 +2,7 @@
 
 This project is a simple API server built with [Go](https://golang.org/) using the [Gin Web Framework](https://github.com/gin-gonic/gin).
 
-The project supports live reloading during development using **Air**, has an integrated migration system and cron scheduling system.
+The project supports live reloading during development using **Air**, has an integrated migration system, auto-registeration of validators and cron scheduling system.
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
